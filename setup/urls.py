@@ -17,7 +17,11 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
+from main.views import Homepage, ReceitaView, ReceitasCreateView
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path("", Homepage.as_view(), name="index"),
+    path("receita/<int:pk>", ReceitaView.as_view(), name="view_receita"),
+    path("nova-receita/", ReceitasCreateView.as_view(), name="nova_receita"),
+    path("admin/", admin.site.urls),  # Django admin interface URL.
 ]

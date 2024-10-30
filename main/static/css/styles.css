@@ -1,0 +1,47 @@
+@import 'reset.css';
+*{
+    animation: ease-in-out  0.3s;
+}
+.logo{
+    height: 5vh;
+}
+
+nav {
+    background: linear-gradient(90deg, #FF8C00, #FF4500);
+    /* Outros estilos que você queira adicionar */
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 8vh;
+    padding: 1vh 0;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-container {
+    margin: 5vh 5vw;
+    width: 90vw;
+    padding: 2vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2vh;
+    text-align: center;
+    justify-content: center;
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(48, 48, 48, 0.75);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+}
+
+form {
+    width: 80%;
+    height: 5vh;
+}

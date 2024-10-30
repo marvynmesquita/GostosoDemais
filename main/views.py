@@ -1,66 +1,29 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Categorias, Ingredientes, Receitas, Usuarios, Tags
+from main.models import Receitas, Categorias
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
+from django.views import View
+from django.urls import reverse_lazy
+from django.core import serializers
 
 
-def index(request):
-    return HttpResponse("Hello, World!")
+class Homepage(View):
+    def get(self, request):
+        receitas = Receitas.objects.all()
+        receitas_list = serializers.serialize("json", list(receitas))
+        context = {"receitas": receitas_list}
+        return render(request, "main/index.html", context)
 
+class ReceitaView(DetailView):
+    model = Receitas
+    template_name = "main/receita.html"
+    context_object_name = "receita"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["ingredientes"] = serializers.serialize("json", list(Ingredientes.objects.all()))
+        return context
 
-def receitas(request):
-    receitas = Receitas.objects.all()
-    return render(request, "receitas.html", {"receitas": receitas})
-
-
-def receita_detail(request, receita_id):
-    receita = Receitas.objects.get(pk=receita_id)
-    return render(request, "receita_detail.html", {"receita": receita})
-
-
-def categorias(request):
-    categorias = Categorias.objects.all()
-    return render(request, "categorias.html", {"categorias": categorias})
-
-
-def categoria_detail(request, categoria_id):
-    categoria = Categorias.objects.get(pk=categoria_id)
-    return render(request, "categoria_detail.html", {"categoria": categoria})
-
-
-def ingredientes(request):
-    ingredientes = Ingredientes.objects.all()
-    return render(request, "ingredientes.html", {"ingredientes": ingredientes})
-
-
-def ingrediente_detail(request, ingrediente_id):
-    ingrediente = Ingredientes.objects.get(pk=ingrediente_id)
-    return render(request, "ingrediente_detail.html", {"ingrediente": ingrediente})
-
-
-def usuarios(request):
-    usuarios = Usuarios.objects.all()
-    return render(request, "usuarios.html", {"usuarios": usuarios})
-
-
-def usuario_detail(request, usuario_id):
-    usuario = Usuarios.objects.get(pk=usuario_id)
-    return render(request, "usuario_detail.html", {"usuario": usuario})
-
-
-def tags(request):
-    tags = Tags.objects.all()
-    return render(request, "tags.html", {"tags": tags})
-
-
-def tag_detail(request, tag_id):
-    tag = Tags.objects.get(pk=tag_id)
-    return render(request, "tag_detail.html", {"tag": tag})
-
-
-def buscar(request):
-    query = request.GET.get("query")
-    receitas = Receitas.objects.filter(nome__icontains=query)
-    return render(request, "buscar.html", {"receitas": receitas})
-
-
-# Create your views here.
+class ReceitasCreateView(CreateView):
+    model = Receitas
+    fields = "__all__"
+    sucess_url = reverse_lazy("receitas")
