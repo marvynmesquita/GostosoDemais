@@ -1,6 +1,7 @@
 @import 'reset.css';
+@import 'animations.css';
 *{
-    animation: ease-in-out  0.3s;
+    transition: ease-in-out  0.3s;
 }
 .logo{
     height: 5vh;
@@ -25,13 +26,13 @@ nav {
 }
 
 .search-container {
-    margin: 5vh 5vw;
+    margin: 0 5vw;
+    margin-top: 7vh;
     width: 90vw;
-    padding: 2vh;
+    padding: 20vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2vh;
     text-align: center;
     justify-content: center;
     backdrop-filter: blur(16px) saturate(180%);
@@ -44,4 +45,50 @@ nav {
 form {
     width: 80%;
     height: 5vh;
+    position: relative;
+    margin-top: 4vh;
+}
+
+.ulReceitas{
+    width: 80% !important;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.ulReceitas li{
+    margin-top: 5vh;
+    height: 5vh;
+    padding: auto 0.7rem;
+    float: left;
+    position: absolute;
+    width: 100% !important;
+    opacity: 0;
+    animation: fadeIn 0.2s ease-in forwards;
+}
+
+.ulReceitas li a{
+    text-decoration: none;
+    font-size: 2vh;
+    height: 90%;
+}
+
+.form-control,
+.form-control:active,
+.form-control:focus {
+    border: none;
+    outline: none;
+    box-shadow: none;
+    font-size: 2vh !important;
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    height: 5vh;
+    
+}
+::placeholder,
+::-webkit-input-placeholder,
+:-moz-placeholder,
+::-moz-placeholder{
+    font-size: 2vh !important;
 }

@@ -19,9 +19,7 @@
         <div class="search-container">
             <h1 class="title">Bateu a fome?</h1>
             <form class="d-flex" role="search">
-                {% csrf_token %}
                 <input class="form-control me-2 search-input" type="search" placeholder="Procure uma receita" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
             </form>
             <ul class="ulReceitas list-group">
             </ul>
@@ -40,11 +38,17 @@
                 if(receita.pk){
                     if(receita.fields.nome.toLowerCase().includes(event.target.value.toLowerCase())){
                         ulReceitas.innerHTML += `<li class="list-group-item"><a href="/receita/${receita.pk}">${receita.fields.nome}</a></li>`;
+                    } else {
+                        ulReceitas.innerHTML += `<li class="list-group-item"><a href="#">Receita não encontrada</a></li>`;
                     }
                 }
             });
+            if(event.target.value === ''){
+                ulReceitas.innerHTML = '';
+            }
         }
         pesquisa.addEventListener('input', search);
+        
     </script>    
 </body>
 </html>
