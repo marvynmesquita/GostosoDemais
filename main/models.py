@@ -8,15 +8,20 @@ class Categorias(models.Model):
     def __str__(self):
         return self.nome
 
+class Ingredientes(models.Model):
+    quantidade = models.CharField(max_length=100)
+    nome = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.nome
 
 class Receitas(models.Model):
     nome = models.CharField(max_length=100)
     modo_preparo = models.TextField()
     categoria = models.ForeignKey(Categorias, on_delete=models.CASCADE)
-    imagem = models.ImageField(upload_to="receitas/")
+    imagem = models.ImageField(upload_to="img/", null=True)
     publicada = models.BooleanField(default=False)
-    ingredientes = models.CharField(max_length=255, null=True)
+    ingredientes = Ingredientes()
     data_criacao = models.DateTimeField(auto_now_add=True)
     data_atualizacao = models.DateTimeField(auto_now=True)
     criador = models.ForeignKey("auth.User", on_delete=models.CASCADE)

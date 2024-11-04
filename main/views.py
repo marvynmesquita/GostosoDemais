@@ -18,9 +18,9 @@ class ReceitaView(DetailView):
     model = Receitas
     template_name = "main/receita.html"
     context_object_name = "receita"
+    context = {"receita": Receitas.objects.all()}
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["ingredientes"] = serializers.serialize("json", list(Ingredientes.objects.all()))
         return context
 
 class ReceitasCreateView(CreateView):
