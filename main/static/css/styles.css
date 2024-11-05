@@ -48,6 +48,9 @@ nav {
     color: #ffffff;
 }
 
+.receita-img{
+    height: 30% !important;
+}
 .search-container {
     margin: 0 5vw;
     margin-top: 7vh;

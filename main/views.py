@@ -32,7 +32,6 @@ class ReceitasCreateView(CreateView):
         "nome",
         "modo_preparo",
         "ingredientes",
-        "imagem",
         "publicada",
         "categoria",
     ]
@@ -54,7 +53,6 @@ class ReceitasUpdateView(UpdateView):
         "nome",
         "modo_preparo",
         "ingredientes",
-        "imagem",
         "publicada",
         "categoria",
     ]
