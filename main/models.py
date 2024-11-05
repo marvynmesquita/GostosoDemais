@@ -1,5 +1,6 @@
 from django.db import models
 import json
+from django.core import serializers
 
 # Create your models here.
 class Categorias(models.Model):
@@ -9,7 +10,6 @@ class Categorias(models.Model):
         return self.nome
 
 class Ingredientes(models.Model):
-    quantidade = models.CharField(max_length=100)
     nome = models.CharField(max_length=100)
 
     def __str__(self):
@@ -21,7 +21,7 @@ class Receitas(models.Model):
     categoria = models.ForeignKey(Categorias, on_delete=models.CASCADE)
     imagem = models.ImageField(upload_to="img/", null=True)
     publicada = models.BooleanField(default=False)
-    ingredientes = Ingredientes()
+    ingredientes = models.CharField(max_length=1000, null=True)
     data_criacao = models.DateTimeField(auto_now_add=True)
     data_atualizacao = models.DateTimeField(auto_now=True)
     criador = models.ForeignKey("auth.User", on_delete=models.CASCADE)
@@ -29,8 +29,8 @@ class Receitas(models.Model):
     def __str__(self):
         return self.nome
     
-    def set_ingredientes(self, x):
-        self.ingredientes = json.dumps(x)
+    def set_ingredientes(self, quantidade, ingredientes):
+        self.ingredientes = serializers.serialize("json", quantidade, ingredientes)
     
     def get_ingredientes(self):
         return json.loads(self.ingredientes)
