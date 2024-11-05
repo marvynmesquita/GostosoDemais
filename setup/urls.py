@@ -19,11 +19,13 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from main.views import Homepage, ReceitaView, ReceitasCreateView
+from main.views import Homepage, ReceitaView, ReceitasCreateView, ReceitasUpdateView, ReceitasDeleteView
 
 urlpatterns = [
     path("", Homepage.as_view(), name="index"),
     path("receita/<int:pk>", ReceitaView.as_view(), name="view_receita"),
     path("nova-receita/", ReceitasCreateView.as_view(), name="nova_receita"),
     path("admin/", admin.site.urls),  # Django admin interface URL.
+    path("editar-receita/<int:pk>", ReceitasUpdateView.as_view(), name="editar_receita"),
+    path("deletar-receita/<int:pk>", ReceitasDeleteView.as_view(), name="deletar_receita"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

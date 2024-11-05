@@ -36,9 +36,15 @@ nav {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    height: 90vh !important;
 }
 
-h3{
+.container .card-form{
+    margin: 5rem;
+    height: 80vh !important;
+}
+
+.container .card .card-header h3{
     color: #ffffff;
 }
 
